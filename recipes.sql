@@ -1,0 +1,60 @@
+-- All recipes used for this project is by HelloFresh
+-- Find their recipes at https://www.hellofresh.com/recipes
+USE Pantry;
+
+INSERT INTO Ingredients (ingredient_id, name) VALUES (1, "Sirlon Steak");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (2, "Yukon Gold Potatoes");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (3, "Sour Cream");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (4, "Beef Stock Concentrate");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (5, "Kale");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (6, "Shallot");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (7, "Black Peppercorns");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (8, "Salt");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (9, "Pepper");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (10, "Vegetable Oil");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (11, "Butter");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (12. "Sweet Potatoes");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (13, "Monterey Jack Cheese");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (14, "Honey Dijon Dressing");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (15, "Onions");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (16, "Chicken Cutlets");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (17, "Green Beans");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (18, "Olive Oil");
+
+INSERT INTO Recipes (recipe_id, name, serving_size) VALUES (1, "Sirloin Steak", 2);
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (1, 1, "Wash and dry all produce. Preheat oven to 400 degrees. Cut potatoes into ¾-inch-thick wedges. Remove and discard stems and ribs from kale. Chop or tear leaves into 1-inch pieces. Halve, peel, and mince shallot. Use a mallet or heavy pan to pound and crush peppercorns in their bag until coarsely ground.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (2, 1, "Toss potatoes with a drizzle of oil and a pinch of salt and pepper on a baking sheet or baking dish. Roast in oven until tender and lightly browned, 30-35 minutes, tossing halfway through.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (3, 1, "Melt 1 TBSP butter in a large pan over medium heat. Add kale and a splash of water. Cook until leaves are completely wilted and very tender, 4-5 minutes. Season with salt and pepper. Remove from heat, keeping kale in pan.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (4, 1, "Heat a drizzle of oil in a medium pan over medium-high heat. Season steak all over with salt and pepper. Add to pan and cook to desired doneness, 4-7 minutes per side. Remove from pan and set aside to rest, 5 minutes.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (5, 1, "Heat another drizzle of oil in same pan. Add shallot and ¼ tsp crushed peppercorns (more or less to taste). Cook until shallots are soft, 2-3 minutes. Add stock concentrate and ½ cup water. Scrape up any browned bits from pan. Bring to a simmer and let bubble until reduced by half, 2-3 minutes. Remove pan from heat, then stir in half the sour cream.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (6, 1, "Return pan with kale to medium heat. When just warmed, remove from heat and stir in remaining sour cream. Season with salt and pepper. Slice steak against the grain. Divide between plates and serve next to potatoes and kale. Drizzle with sauce.");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (1, 1, 12, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (2, 1, 12, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (3, 1, 4, "tablespoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (4, 1, 2, "tablespoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (5, 1, 4, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (6, 1, 1, "unit");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (7, 1, 0.5, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (8, 1, null, null);
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (9, 1, null, null);
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (10, 1, 1, "tablespoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (11, 1, 1, "tablespoon");
+
+INSERT INTO Recipes (recipe_id, name, serving_size) VALUES (2, "Onion Crunch Chicken", 2);
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (1, 2, "Adjust rack to middle position (middle and top positions for 4 servings) and preheat oven to 425 degrees. Wash and dry produce.  Peel and dice sweet potatoes into ½-inch pieces.  Using your hands, finely crush crispy fried onions in their bag. (TIP: Once crushed, crispy fried onions should resemble breadcrumbs.) Transfer to a small bowl; stir in Monterey Jack.  Reserve 1 TBSP dressing (2 TBSP for 4 servings) in a second small bowl (you’ll use it in step 3).");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (2, 2, "Place sweet potatoes in a medium pot with enough salted water to cover by 2 inches. Bring to a boil and cook until tender, 15-20 minutes.  Reserve ½ cup potato cooking liquid, then drain and return sweet potatoes to pot. Cover to keep warm.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (3, 2, "Meanwhile, pat chicken* dry with paper towels and season all over with salt and pepper. Place on one side of a baking sheet. (For 4 servings, spread chicken out across entire sheet.)  Evenly spread tops of chicken with a thin layer of reserved dressing. Mound coated sides with onion crust, pressing to adhere (no need to coat the undersides).");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (4, 2, "Toss green beans on empty side of same sheet with a drizzle of olive oil, salt, and pepper. (For 4 servings, add green beans to a second sheet; roast green beans on top rack and chicken on middle rack.)  Roast on middle rack until chicken is cooked through and green beans are browned and tender, 15-20 minutes. TIP: Check chicken periodically—if the crust browns too quickly, loosely cover with foil. Additionally, if green beans finish before chicken, remove from sheet and continue roasting chicken.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (5, 2, "Meanwhile, mash sweet potatoes with sour cream, 2 TBSP butter (4 TBSP for 4 servings), and a big pinch of salt until smooth, adding splashes of reserved potato cooking liquid as needed. Taste and season with salt and pepper.");
+INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (6, 2, "Divide mashed sweet potatoes, green beans, and chicken between plates. Serve with remaining dressing on the side. Chicken is fully cooked when internal temperature reaches 165º.");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (12, 2, 2, "unit");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (13, 2, 0.25, "cup");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (14, 2, 1.5, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (3, 2, 1.5, "tablespoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (15, 2, 1, "unit");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (16, 2, 10, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (17, 2, 6, "ounce");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (8, 2, null, null);
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (9, 2, null, null);
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (18, 2, 1, "teaspoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit)  VALUES (11, 2, 2, "tablespoon");
