@@ -13,7 +13,7 @@ INSERT INTO Ingredients (ingredient_id, name) VALUES (8, "Salt");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (9, "Pepper");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (10, "Vegetable Oil");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (11, "Butter");
-INSERT INTO Ingredients (ingredient_id, name) VALUES (12. "Sweet Potatoes");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (12, "Sweet Potatoes");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (13, "Monterey Jack Cheese");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (14, "Honey Dijon Dressing");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (15, "Onion");
@@ -166,7 +166,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (16, 3, 12, "ounce");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (3, 3, 4, "tablespoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (23, 3, 2, "teaspoon");
-INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (13, 3, 0,25, "cup");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (13, 3, 0.25, "cup");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (24, 3, 2, "unit");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (25, 3, 2, "teaspoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (18, 3, 2, "teaspoon");
@@ -265,7 +265,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (38, 7, 0.5, "teaspoon");
 
 -- https://www.hellofresh.com/recipes/street-cart-style-turkey-bowls-621e8a34eae5940f43614ace
-INSERT INTO Recipes (recipe_id, name, serving_size, mins) VALUES (8, "Street Cart-Style Turkey Bowls", 20);
+INSERT INTO Recipes (recipe_id, name, serving_size, mins) VALUES (8, "Street Cart-Style Turkey Bowls", 2, 20);
 INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (1, 8, "Melt 1 TBSP butter in a small pot over medium heat. Stir in ¼ tsp turmeric (½ tsp for 4 servings) until combined. • Stir in rice, ¾ cup water (1½ cups for 4), and a big pinch of salt and pepper. Bring to a boil, then cover and reduce to a low simmer. Cook until rice is tender, 15-18 minutes. Keep covered off heat until ready to use in step 5.");
 INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (2, 8, "Meanwhile, bring 2 TBSP butter (4 TBSP for 4 servings) to room temperature. Wash and dry produce. • Quarter lemon. Trim and thinly slice scallions, separating whites from greens. Dice tomato.");
 INSERT INTO Steps_in_Recipe (step_id, recipe_id, instruction) VALUES (3, 8, "In a small bowl, combine sour cream, mayonnaise, garlic powder, and a squeeze of lemon juice. Add water 1 tsp at a time until sauce reaches a drizzling consistency. Season with salt and pepper.");

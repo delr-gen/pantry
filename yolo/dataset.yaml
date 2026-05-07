@@ -1,0 +1,4 @@
+train: dataset/images/train
+val: dataset/images/val
+nc: 12
+names: ['Baby Bok Choy','Beef Stock','Brocolli','Chicken Breast','Garlic','Jasmine Rice','Lemon','Olive Oil','Onion','Oyster Sauce','Pork Chop','Yukon Gold Potato']
