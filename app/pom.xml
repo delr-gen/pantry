@@ -62,13 +62,12 @@
           <version>2.8.2</version>
         </plugin>
       
+
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
-          <version>1.3.2</version>
+          <version>3.6.3</version>
           <executions>
-              <!-- Required: The following will ensure `npm install` is called
-                    before anything else during the 'Default Lifecycle' -->
               <execution>
                   <id>npm install (initialize)</id>
                   <goals>
@@ -77,13 +76,13 @@
                   <phase>initialize</phase>
                   <configuration>
                       <executable>npm</executable>
+                      <workingDirectory>src/main/webapp</workingDirectory>
                       <arguments>
                           <argument>install</argument>
                       </arguments>
                   </configuration>
               </execution>
-              <!-- Required: The following will ensure `npm install` is called
-                    before anything else during the 'Clean Lifecycle' -->
+
               <execution>
                   <id>npm install (clean)</id>
                   <goals>
@@ -92,15 +91,13 @@
                   <phase>pre-clean</phase>
                   <configuration>
                       <executable>npm</executable>
+                      <workingDirectory>src/main/webapp</workingDirectory>
                       <arguments>
                           <argument>install</argument>
                       </arguments>
                   </configuration>
               </execution>
 
-              <!-- Required: This following calls `npm run build` where 'build' is
-                    the script name I used in my project, change this if yours is
-                        different -->
               <execution>
                   <id>npm run build (compile)</id>
                   <goals>
@@ -109,6 +106,7 @@
                   <phase>compile</phase>
                   <configuration>
                       <executable>npm</executable>
+                      <workingDirectory>src/main/webapp</workingDirectory>
                       <arguments>
                           <argument>run</argument>
                           <argument>build</argument>
@@ -117,17 +115,17 @@
               </execution>
 
           </executions>
-
+        
           <configuration>
               <environmentVariables>
                   <CI>true</CI>
-                  <!-- The following parameters create an NPM sandbox for CI -->
                   <NPM_CONFIG_PREFIX>${basedir}/npm</NPM_CONFIG_PREFIX>
                   <NPM_CONFIG_CACHE>${NPM_CONFIG_PREFIX}/cache</NPM_CONFIG_CACHE>
-                  <NPM_CONFIG_TMP>${project.build.directory}/npmtmp</NPM_CONFIG_TMP>
+                  <!--<NPM_CONFIG_TMP>${project.build.directory}/npmtmp</NPM_CONFIG_TMP>-->
               </environmentVariables>
           </configuration>
         </plugin>
+        
       </plugins>
     </pluginManagement>
   </build>

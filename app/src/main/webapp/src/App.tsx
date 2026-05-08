@@ -1,8 +1,10 @@
 import {
   BrowserRouter,
+  /*,
   Link,
   Route,
   Switch
+  */
 } from 'react-router-dom';
 
 import SearchBar from "./components/searchbar.tsx"
