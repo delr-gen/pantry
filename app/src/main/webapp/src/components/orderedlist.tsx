@@ -1,6 +1,6 @@
 export default function Orderedlist() {
     function getList() {
-        fetch("my-pantry/list", {method: "GET"});
+        fetch("list", {method: "GET"});
     }
     return (
         <form action={getList}>
