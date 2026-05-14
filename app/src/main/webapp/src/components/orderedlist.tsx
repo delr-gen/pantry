@@ -1,14 +1,8 @@
-export default function Orderedlist() {
-    function getList() {
-        fetch("list", {method: "GET"});
-    }
+export default function Orderedlist({listName}) {
     return (
-        <form action={getList}>
-        <label>
-            Ingredients
-            <input name="query" id="query"/>
-        </label>
-          <button type="submit">See Ingredients</button>
-        </form>
+        <div>
+            {listName}
+            <ol></ol>
+        </div>
     )
 }

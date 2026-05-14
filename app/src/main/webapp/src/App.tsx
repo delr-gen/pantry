@@ -7,16 +7,14 @@ import {
   */
 } from 'react-router-dom';
 
-import SearchBar from "./components/searchbar.tsx"
-import Orderedlist from './components/orderedlist.tsx';
+import SearchRecipe from './components/SearchRecipe';
 
 function App() {
 
   return (
     <div>
       <BrowserRouter basename={process.env.REACT_APP_ROUTER_BASE || ''}></BrowserRouter>
-      <SearchBar/>
-      <Orderedlist/>
+      <SearchRecipe/>
     </div>
   )
 }

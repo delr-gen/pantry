@@ -1,23 +1,29 @@
-export default function SearchBar () {
+import GetButton from "./getButton"
+
+interface SearchBarProps {
+  searchEvent: (data: FormData) => void;
+  searchText: string;
+  searchName: string;
+  buttonText: string;
+}
+
+export default function SearchBar ({searchEvent, searchText, searchName, buttonText}: SearchBarProps) {
+  /*
     function search(formData: FormData) {
         const query = formData.get("query");
         alert(`You searched for '${query}'`);
-        /*
-        fetch({
-            dataType: "json", // Setting return data type
-            method: "GET", // Setting request method
-            url: "api/recipesearch", // Setting request url, which is mapped by IndexServlet in IndexServlet.java
-            success: (resultData) => (alert(resultData["get"])) // Setting callback function to handle data returned successfully by the StarsSer>
-        });
-        */
       }
+  */
+
       return (
-        <form action={search}>
+        <form action={searchEvent}>
         <label>
-            Search
-            <input name="query" id="query"/>
+            {searchText}
+            <input name={searchName}/>
         </label>
-          <button type="submit">Search</button>
+          <GetButton
+            buttonText={buttonText}
+          />
         </form>
       );
 }
