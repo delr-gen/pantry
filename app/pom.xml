@@ -23,6 +23,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <java.version>17</java.version>
   </properties>
 
   <dependencies>
@@ -33,6 +34,7 @@
       <scope>test</scope>
     </dependency>
 
+<!--
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -44,8 +46,12 @@
         <artifactId>gson</artifactId>
         <version>2.10.1</version>
     </dependency>
+-->
 
-
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-session-jdbc</artifactId>
+		</dependency>
     <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
@@ -60,6 +66,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    
+
 
 
     <dependency>
@@ -80,17 +92,22 @@
     <finalName>my-pantry</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+      
+        <!--<plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>-->
+        
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+      <!--
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
-          <configuration>
-          <includes>
-              <!-- Only compile classes in the 'com/example/specific' directory 
-              <include>src/main/java/**/*.java</include>-->
-          </includes>
-      </configuration>
         </plugin>
-        <!--
+
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
@@ -105,10 +122,6 @@
           <version>3.5.2</version>
         </plugin>
         <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.2</version>
-        </plugin>
-        <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
         </plugin>
@@ -117,13 +130,8 @@
           <version>2.8.2</version>
         </plugin>
         -->
-        
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
       
-
+<!--
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
@@ -182,15 +190,14 @@
                   <CI>true</CI>
                   <NPM_CONFIG_PREFIX>${basedir}/npm</NPM_CONFIG_PREFIX>
                   <NPM_CONFIG_CACHE>${NPM_CONFIG_PREFIX}/cache</NPM_CONFIG_CACHE>
-                  <!--<NPM_CONFIG_TMP>${project.build.directory}/npmtmp</NPM_CONFIG_TMP>-->
               </environmentVariables>
           </configuration>
         </plugin>
-        
+ -->       
       </plugins>
     </pluginManagement>
   </build>
-
+<!--
   <profiles>
         <profile>
             <id>local</id>
@@ -214,4 +221,5 @@
             </build>
         </profile>
     </profiles>
+-->
 </project>

@@ -4,6 +4,6 @@ interface GetButtonProps {
 
 export default function GetButton({buttonText}: GetButtonProps) {
     return (
-        <button type="button">{buttonText}</button>
+        <button type="submit">{buttonText}</button>
     )
 }

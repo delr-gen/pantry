@@ -1,6 +1,7 @@
-package main.java.servlets;
+package main.java.com.pantry.my_pantry.controllers;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/* 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import jakarta.servlet.ServletConfig;
@@ -26,3 +27,4 @@ public class PantryIngredientsServlet extends HttpServlet {
 
     }
 }
+*/

@@ -1,4 +1,4 @@
-import GetButton from "./getButton"
+import GetButton from "./GetButton"
 
 interface SearchBarProps {
   searchEvent: (data: FormData) => void;
