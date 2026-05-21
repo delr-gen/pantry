@@ -1,4 +1,5 @@
-package main.java.com.pantry.my_pantry.recipe;
+package com.pantry.my_pantry.recipe;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.google.gson.JsonArray;
 //import com.google.gson.JsonObject;
 
-
 @RestController
-@RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping(value="/api")
+@ResponseBody
 public class RecipeController {
-    @GetMapping("/recipesearch/{name}")
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @GetMapping(value="/recipesearch/{name}")
     public Recipe getRecipeByName(@PathVariable String name) {
         String query = "SELECT * FROM Recipes WHERE name=?";
         RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
         Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, name);
 
         return recipe;

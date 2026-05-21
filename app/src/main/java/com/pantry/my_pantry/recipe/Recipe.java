@@ -1,8 +1,8 @@
-package main.java.com.pantry.my_pantry.recipe;
+package com.pantry.my_pantry.recipe;
 
 public class Recipe {
     private int recipe_id;
-    private String recipe_name;
+    private String name;
     private int serving_size;
     private int mins;
 
@@ -11,7 +11,7 @@ public class Recipe {
     }
 
     public void setName(String recipe_name) {
-        this.recipe_name = recipe_name;
+        this.name = recipe_name;
     }
 
     public void setServingSize(int serving_size) {
@@ -27,7 +27,7 @@ public class Recipe {
     }
 
     public String getName() {
-        return this.recipe_name;
+        return this.name;
     }
 
     public int getServingSize() {
