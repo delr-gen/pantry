@@ -1,4 +1,4 @@
-package com.pantry.my_pantry;
+package main.java.com.pantry.my_pantry;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

@@ -1,4 +1,4 @@
-import GetButton from "./GetButton"
+import SubmitButton from "./SubmitButton"
 
 interface SearchBarProps {
   searchEvent: (data: FormData) => void;
@@ -8,6 +8,7 @@ interface SearchBarProps {
 }
 
 export default function SearchBar ({searchEvent, searchText, searchName, buttonText}: SearchBarProps) {
+  // TODO: use state for user input
   /*
     function search(formData: FormData) {
         const query = formData.get("query");
@@ -21,7 +22,7 @@ export default function SearchBar ({searchEvent, searchText, searchName, buttonT
             {searchText}
             <input name={searchName}/>
         </label>
-          <GetButton
+          <SubmitButton
             buttonText={buttonText}
           />
         </form>

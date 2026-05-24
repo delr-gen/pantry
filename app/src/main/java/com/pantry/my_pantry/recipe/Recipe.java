@@ -1,4 +1,4 @@
-package com.pantry.my_pantry.recipe;
+package main.java.com.pantry.my_pantry.recipe;
 
 public class Recipe {
     private int recipe_id;

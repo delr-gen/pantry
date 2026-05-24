@@ -1,4 +1,4 @@
-package com.pantry.my_pantry.recipe;
+package main.java.com.pantry.my_pantry.recipe;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;

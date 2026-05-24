@@ -1,4 +1,4 @@
-package com.pantry.my_pantry.recipe;
+package main.java.com.pantry.my_pantry.recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-//import com.google.gson.JsonArray;
-//import com.google.gson.JsonObject;
 
 @RestController
 @RequestMapping(value="/api")
-@ResponseBody
 public class RecipeController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping(value="/recipesearch/{name}")
     public Recipe getRecipeByName(@PathVariable String name) {
+        // TODO: return nothing when recipe not found
         String query = "SELECT * FROM Recipes WHERE name=?";
         RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
         Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, name);
@@ -28,22 +26,3 @@ public class RecipeController {
         return recipe;
     }
 }
-
-/*
-// Declaring a WebServlet called RecipeSearchServlet, which maps to url "/recipesearch"
-@WebServlet(name = "RecipeSearchServlet", urlPatterns = "/recipesearch")
-public class RecipeSearchServlet {
-
-    protected void doGet(HttpServletRequest request) {
-        String recipe = request.getParameter("recipe");
-        String query = "SELECT * FROM Recipes WHERE name=?"
-        Recipe recipe = JdbcTemplate.queryForObject(query, new RecipeRowMapper(), recipe);
-
-        JsonObject data = new JsonObject(); 
-        data.addProperty("res", "success");
-        
-        JsonArray dataArray = new JsonArray();
-        dataArray.add(data);
-    }
-}
-*/

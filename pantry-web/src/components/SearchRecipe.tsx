@@ -5,7 +5,7 @@ async function search(data: FormData) {
     alert(`You searched for '${query}'`);
     if (typeof query === "string"){
         try {
-            const response = await fetch(`/api/recipesearch/${query}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipesearch/${query}`, {
                 method: "GET"
             });
             
@@ -13,7 +13,8 @@ async function search(data: FormData) {
                 throw new Error(`Response status: ${response.status}`);
             }
             else {
-                console.log(response);
+                const data = await response.json();
+                console.log(data);
             }
         }
         catch (error: unknown) {
