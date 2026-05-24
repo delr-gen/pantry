@@ -1,31 +1,38 @@
 interface AddIngredientPromptProps {
-    number: number
-}
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+};
 
-export default function AddIngredientPrompt({ number }: AddIngredientPromptProps) {
-    const name = `name_${number}`;
-    const quantity = `quantity_${number}`;
-    const unit = `unit_${number}`;
-    const date_bought = `date_bought_${number}`;
-    const expiration_date = `expiration_date_${number}`;
 
+export default function AddIngredientPrompt( {handleInputChange}: AddIngredientPromptProps) {
+    const today = new Date();
+    const oneWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     return (
-        <>
-            <label htmlFor={name}>Ingredient Name: </label>
-            <input type="text" id={name} name="name"/>
-            <br></br>
-            <label htmlFor={quantity}>Quantity: </label>
-            <input type="text" id={quantity} name="quantity"/>
-            <br></br>
-            <label htmlFor={unit}>Unit: </label>
-            <input type="text" id={unit} name="unit"/>
-            <br></br>
-            <label htmlFor={date_bought}>Date Bought: </label>
-            <input type="date" id={date_bought} name="date_bought"/>
-            <br></br>
-            <label htmlFor={expiration_date}>Expiration Date: </label>
-            <input type="date" id={expiration_date} name="expiration_date"/>
-            <br></br>
-        </>
+        <div>
+            <input
+                name="name"
+                type="text"
+                onChange={handleInputChange}
+                placeholder="ex: cabbage, beef stock, ..."/>
+            <input
+                name="quantity"
+                type="number"
+                onChange={handleInputChange}
+                defaultValue={1} />
+            <input
+                name="unit"
+                type="text"
+                onChange={handleInputChange}
+                defaultValue="Unit"/>
+            <input
+                name="date_bought"
+                type="date"
+                onChange={handleInputChange}
+                defaultValue={today.toISOString().split('T')[0]}/>
+            <input
+                name="expiration_date"
+                type="date"
+                onChange={handleInputChange}
+                defaultValue={oneWeek.toISOString().split('T')[0]}/>
+        </div>
     )
 }

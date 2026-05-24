@@ -1,24 +1,43 @@
 import { useState } from 'react';
-import AddIngredientPromptItem from './AddIngredientPromptItem';
 import './AddIngredientModal.css';
-import { Modal, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import AddIngredientPrompt from './AddIngredientPrompt';
 
 
 export default function AddIngredientModal() {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    setIngredients([initialValues]);
+  }
 
-  async function submit_ingredient(event) {
+  const initialValues = {
+    name: "",
+    quantity: "",
+    unit: "",
+    date_bought: "",
+    expiration_date: ""
+  }
+
+  const [ingredients, setIngredients] = useState([initialValues]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
+      const { name, value } = event.target;
+      let newIngredients = [...ingredients];
+      newIngredients[i][name] = value;
+      setIngredients(newIngredients);
+  }
+
+  const handleAddIngredientPrompt = () => {
+    setIngredients([...ingredients, initialValues])
+  }
+
+  async function submit_ingredient(event: React.ChangeEvent<HTMLFormElement>) {
     // prevent propagation
     event.preventDefault();
-  
-    const data = new FormData(event.target);
-    const name = data.getAll("name");
-    const quantity = data.getAll("quantity");
-    const unit = data.getAll("unit")
-    alert(`${name} ${quantity} ${unit}'`);
+
+    //alert(`${ingredients[0].name}'`);
     handleClose();
   }
 
@@ -34,16 +53,19 @@ export default function AddIngredientModal() {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={submit_ingredient}>
-            <ListGroup>
-              <ListGroupItem className="add-ingredient-prompt-item">
-                  <AddIngredientPrompt number={1}/>
-              </ListGroupItem>
-              <AddIngredientPromptItem number={2}/>
-            </ListGroup>
+            <fieldset>
+                <legend>Ingredients</legend>
+                {ingredients.map((ingredient, i) => (
+                  <div key={i}>
+                    <AddIngredientPrompt handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}/>
+                  </div>
+                ))}
+            </fieldset>
             <Button type="submit" variant="primary">
               Submit
             </Button>
           </form>
+          <Button type="submit" onClick={handleAddIngredientPrompt}>+</Button>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
