@@ -5,6 +5,7 @@ import main.java.com.pantry.my_pantry.ingredient.Ingredient;
 
 public class PantryIngredient extends Ingredient{
     private int pantry_ingredient_id;
+    private int ingredient_id;
     private LocalDate date_bought = LocalDate.now();
     private LocalDate expiration_date;
     private float quantity;
@@ -12,6 +13,10 @@ public class PantryIngredient extends Ingredient{
 
     public void setPantryIngredientId(int id) {
         this.pantry_ingredient_id = id;
+    }
+
+    public void setIngredientId(int id) {
+        this.ingredient_id = id;
     }
 
     public void setDateBought(LocalDate date) {
@@ -28,6 +33,14 @@ public class PantryIngredient extends Ingredient{
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public int getPantryIngredientId() {
+        return pantry_ingredient_id;
+    }
+
+    public int getIngredientId() {
+        return ingredient_id;
     }
 
     public LocalDate getDateBought() {

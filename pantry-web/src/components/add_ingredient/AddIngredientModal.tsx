@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './AddIngredientModal.css';
 import { Modal, Button } from 'react-bootstrap';
-import AddIngredientPrompt from './AddIngredientPrompt';
+import AddIngredientPromptItem from './AddIngredientPromptItem';
 
 
 export default function AddIngredientModal() {
@@ -14,10 +14,10 @@ export default function AddIngredientModal() {
 
   const initialValues = {
     name: "",
-    quantity: "",
-    unit: "",
-    date_bought: "",
-    expiration_date: ""
+    quantity: 1,
+    unit: "unit",
+    date_bought: new Date(),
+    expiration_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   }
 
   const [ingredients, setIngredients] = useState([initialValues]);
@@ -33,11 +33,19 @@ export default function AddIngredientModal() {
     setIngredients([...ingredients, initialValues])
   }
 
-  async function submit_ingredient(event: React.ChangeEvent<HTMLFormElement>) {
+  async function handleSubmitIngredients(event: React.ChangeEvent<HTMLFormElement>) {
     // prevent propagation
     event.preventDefault();
 
     //alert(`${ingredients[0].name}'`);
+    console.log(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients/${JSON.stringify(ingredients)}`);
+    await fetch(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(ingredients)
+    });
     handleClose();
   }
 
@@ -52,12 +60,14 @@ export default function AddIngredientModal() {
           <Modal.Title>Add Ingredients</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={submit_ingredient}>
+          <form onSubmit={handleSubmitIngredients}>
             <fieldset>
-                <legend>Ingredients</legend>
+                <legend>Add Ingredients</legend>
                 {ingredients.map((ingredient, i) => (
                   <div key={i}>
-                    <AddIngredientPrompt handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}/>
+                    Ingredient #{i+1}:
+                    <AddIngredientPromptItem handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}/>
+                      <br></br>
                   </div>
                 ))}
             </fieldset>

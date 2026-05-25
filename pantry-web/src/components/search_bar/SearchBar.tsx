@@ -1,5 +1,3 @@
-import SubmitButton from "./SubmitButton"
-
 interface SearchBarProps {
   searchEvent: (data: FormData) => void;
   searchText: string;
@@ -22,9 +20,7 @@ export default function SearchBar ({searchEvent, searchText, searchName, buttonT
             {searchText}
             <input name={searchName}/>
         </label>
-          <SubmitButton
-            buttonText={buttonText}
-          />
+        <button type="submit">{buttonText}</button>
         </form>
       );
 }

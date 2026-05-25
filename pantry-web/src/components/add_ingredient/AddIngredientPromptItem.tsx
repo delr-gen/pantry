@@ -3,36 +3,40 @@ interface AddIngredientPromptProps {
 };
 
 
-export default function AddIngredientPrompt( {handleInputChange}: AddIngredientPromptProps) {
+export default function AddIngredientPromptItem( {handleInputChange}: AddIngredientPromptProps) {
     const today = new Date();
     const oneWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     return (
         <div>
-            <input
+            Name: <input
                 name="name"
                 type="text"
                 onChange={handleInputChange}
                 placeholder="ex: cabbage, beef stock, ..."/>
-            <input
+            <br></br>
+            Quantity: <input
                 name="quantity"
                 type="number"
                 onChange={handleInputChange}
                 defaultValue={1} />
-            <input
+            <br></br>
+            Unit: <input
                 name="unit"
                 type="text"
                 onChange={handleInputChange}
-                defaultValue="Unit"/>
-            <input
+                defaultValue="unit"/>
+            <br></br>
+            Date Bought: <input
                 name="date_bought"
                 type="date"
                 onChange={handleInputChange}
-                defaultValue={today.toISOString().split('T')[0]}/>
-            <input
+                value={today.toISOString().split('T')[0]}/>
+            <br></br>
+            Expiration Date: <input
                 name="expiration_date"
                 type="date"
                 onChange={handleInputChange}
-                defaultValue={oneWeek.toISOString().split('T')[0]}/>
+                value={oneWeek.toISOString().split('T')[0]}/>
         </div>
     )
 }
