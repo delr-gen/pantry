@@ -30,13 +30,13 @@ export default function AddIngredientPromptItem( {handleInputChange}: AddIngredi
                 name="date_bought"
                 type="date"
                 onChange={handleInputChange}
-                value={today.toISOString().split('T')[0]}/>
+                defaultValue={today.toISOString().split('T')[0]}/>
             <br></br>
             Expiration Date: <input
                 name="expiration_date"
                 type="date"
                 onChange={handleInputChange}
-                value={oneWeek.toISOString().split('T')[0]}/>
+                defaultValue={oneWeek.toISOString().split('T')[0]}/>
         </div>
     )
 }

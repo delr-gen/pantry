@@ -94,7 +94,6 @@ INSERT INTO Ingredients (ingredient_id, name) VALUES (89, "Button Mushroom");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (90, "White Wine Vinegar");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (91, "Sriracha");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (92, "Ground Beef");
-INSERT INTO Ingredients (ingredient_id, name) VALUES (93, "Vegetable Oil");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (94, "Ginger");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (95, "Chili Pepper");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (96, "Curry Powder");
@@ -458,7 +457,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (92, 16, 10, "ounce");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (8, 16, null, null);
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (9, 16, null, null);
-INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (93, 16, 4, "teaspoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (10, 16, 4, "teaspoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (38, 16, 1.5, "tablespoon");
 
 -- https://www.hellofresh.com/recipes/thai-coconut-curry-chicken-5fea59f795e99a13fb4bddf0
@@ -479,7 +478,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (99, 17, 10, "ounce");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (100, 17, 5, "ounce");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (41, 17, 2, "teaspoon");
-INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (93, 17, 4, "teaspoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (10, 17, 4, "teaspoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (11, 17, 1, "tablespoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (8, 17, null, null);
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (9, 17, null, null);
@@ -502,7 +501,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (90, 18, 5, "teaspoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (8, 18, null, null);
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (9, 18, null, null);
-INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (93, 18, 1, "teaspoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (10, 18, 1, "teaspoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (11, 18, 2, "tablespoon");
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (38, 18, 1, "teaspoon");
 
@@ -527,7 +526,7 @@ INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VAL
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (8, 19, null, null);
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (9, 19, null, null);
 INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (11, 19, 1, "tablespoon");
-INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (93, 19, 1, "tablespoon");
+INSERT INTO Ingredients_in_Recipe (ingredient_id, recipe_id, quantity, unit) VALUES (10, 19, 1, "tablespoon");
 
 -- https://www.hellofresh.com/recipes/italian-chicken-pepper-sandos-6075d61c38625b79a415ba8b
 INSERT INTO Recipes (recipe_id, name, serving_size, mins) VALUES(20, "Italian Chicken & Pepper Sandos", 2, 35);

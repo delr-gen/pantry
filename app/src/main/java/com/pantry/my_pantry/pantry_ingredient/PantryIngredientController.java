@@ -42,7 +42,7 @@ public class PantryIngredientController {
         }
 
         // insert ingredient into ingredients if not exists
-        String insertIngredientString = "INSERT INTO Ingredients (ingredient_id, name) SELECT NULL, ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM Ingredients WHERE name=? LIMIT 1)";
+        String insertIngredientString = "INSERT INTO Ingredients (name) SELECT ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM Ingredients WHERE name=?)";
         jdbcTemplate.batchUpdate(
             insertIngredientString,
             batchIngredients

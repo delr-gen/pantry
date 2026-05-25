@@ -1,12 +1,17 @@
 package main.java.com.pantry.my_pantry.pantry_ingredient;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import main.java.com.pantry.my_pantry.ingredient.Ingredient;
 
 public class PantryIngredient extends Ingredient{
     private int pantry_ingredient_id;
     private int ingredient_id;
-    private LocalDate date_bought = LocalDate.now();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate date_bought;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate expiration_date;
     private float quantity;
     private String unit = "unit";

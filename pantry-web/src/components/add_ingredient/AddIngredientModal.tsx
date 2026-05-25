@@ -16,7 +16,7 @@ export default function AddIngredientModal() {
     name: "",
     quantity: 1,
     unit: "unit",
-    date_bought: new Date(),
+    date_bought: new Date().toISOString().split('T')[0],
     expiration_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   }
 
