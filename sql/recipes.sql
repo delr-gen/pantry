@@ -1,8 +1,9 @@
 -- All recipes used for this project is by HelloFresh
 -- Find their recipes at https://www.hellofresh.com/recipes
+
 USE Pantry;
 
-INSERT INTO Ingredients (ingredient_id, name) VALUES (1, "Sirlon Steak");
+INSERT INTO Ingredients (ingredient_id, name) VALUES (1, "Sirloin Steak");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (2, "Yukon Gold Potatoes");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (3, "Sour Cream");
 INSERT INTO Ingredients (ingredient_id, name) VALUES (4, "Beef Stock Concentrate");

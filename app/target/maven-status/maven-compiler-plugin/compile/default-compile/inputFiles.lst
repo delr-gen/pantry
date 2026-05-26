@@ -1,0 +1,13 @@
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/MyPantryApplication.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/ServletInitializer.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/controllers/PantryIngredientsServlet.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/ingredient/Ingredient.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_ingredient/PantryIngredient.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_ingredient/PantryIngredientController.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_ingredient/PantryIngredientMapper.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_recipes/PantryRecipe.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_recipes/PantryRecipeController.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/pantry_recipes/PantryRecipeRowMapper.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/recipe/Recipe.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/recipe/RecipeController.java
+/Users/gen/pantry/app/src/main/java/com/pantry/my_pantry/recipe/RecipeRowMapper.java

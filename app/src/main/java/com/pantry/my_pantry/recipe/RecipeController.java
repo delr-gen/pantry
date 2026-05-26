@@ -19,7 +19,15 @@ public class RecipeController {
     @GetMapping(value="/recipesearch/{name}")
     public Recipe getRecipeByName(@PathVariable String name) {
         // TODO: return nothing when recipe not found
-        String query = "SELECT * FROM Recipes WHERE name=?";
+        String query = """
+                SELECT recipe_id, r.name, serving_size, mins, JSON_ARRAYAGG(i.name) AS ingredients
+                FROM Recipes AS r 
+                LEFT JOIN Ingredients_In_Recipe USING (recipe_id) 
+                LEFT JOIN Ingredients AS i USING (ingredient_id) 
+                WHERE r.name=?
+                GROUP BY recipe_id
+            """;
+
         RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
         Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, name);
 

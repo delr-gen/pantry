@@ -12,6 +12,7 @@ public class RecipeRowMapper implements RowMapper<Recipe>{
         recipe.setName(rs.getString("name"));
         recipe.setServingSize(rs.getInt("serving_size"));
         recipe.setMins(rs.getInt("mins"));
+        recipe.setIngredients(rs.getString("ingredients"));
 
         return recipe;
     }

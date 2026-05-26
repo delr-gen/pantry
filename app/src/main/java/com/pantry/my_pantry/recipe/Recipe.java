@@ -1,10 +1,14 @@
 package main.java.com.pantry.my_pantry.recipe;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 public class Recipe {
     private int recipe_id;
     private String name;
     private int serving_size;
     private int mins;
+    private String[] ingredients;
 
     public void setId(int recipe_id) {
         this.recipe_id = recipe_id;
@@ -22,6 +26,16 @@ public class Recipe {
         this.mins = mins;
     }
 
+    public void setIngredients(String ingredients) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.ingredients = mapper.readValue(ingredients, String[].class);
+        }
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getId() {
         return this.recipe_id;
     }
@@ -36,5 +50,9 @@ public class Recipe {
 
     public int getMins() {
         return this.mins;
+    }
+
+    public String[] getIngredients() {
+        return this.ingredients;
     }
 }

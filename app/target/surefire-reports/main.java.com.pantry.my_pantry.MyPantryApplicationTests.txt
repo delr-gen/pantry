@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: main.java.com.pantry.my_pantry.MyPantryApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.724 s -- in main.java.com.pantry.my_pantry.MyPantryApplicationTests
