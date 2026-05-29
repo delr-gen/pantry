@@ -33,4 +33,16 @@ public class RecipeController {
 
         return recipe;
     }
+
+    @GetMapping("/recipebyid/{id}")
+    public Recipe getPantryRecipeById(@PathVariable Integer id) {
+        String query = """
+                SELECT * FROM Recipes WHERE id = ?
+                """;
+
+        RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
+        Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, id);
+        
+        return recipe;
+    }
 }

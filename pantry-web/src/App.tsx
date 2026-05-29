@@ -1,15 +1,19 @@
 import AddIngredientModal from './components/add_ingredient/AddIngredientModal';
 import SearchRecipe from './components/search_bar/SearchRecipe';
-import PantryRecipe from './components/PantryRecipe';
-
+import PantryRecipeList from './components/pantry_recipe/PantryRecipeList';
+import "./App.css"
 
 function App() {
 
   return (
-    <div>
-      <SearchRecipe/>
-      <AddIngredientModal/>
-      <PantryRecipe></PantryRecipe>
+    <div className="container">
+      <div>
+        <SearchRecipe/>
+        <AddIngredientModal/>
+      </div>
+      <div>
+        <PantryRecipeList/>
+      </div>
     </div>
   )
 }

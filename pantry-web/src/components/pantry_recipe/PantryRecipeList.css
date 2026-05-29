@@ -1,0 +1,8 @@
+.missing-ingredient {
+    color: rgb(223, 100, 100);
+    font-style: italic;
+}
+
+li {
+    text-align: left;
+}
