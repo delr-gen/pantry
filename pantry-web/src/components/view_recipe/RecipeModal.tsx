@@ -138,11 +138,19 @@ export default function RecipeModal( {id, show, setShow} : RecipeModalProps) {
                 <Modal.Title>{recipe.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <ul>
+                <div>
                     <legend>Ingredients</legend>
+                    <ul>
                     {ingredients.map(ingredient => <li key={ingredient.ingredientId} style={{color: !(ingredient.ingredientId in pantryIngredients) ?"rgb(223, 100, 100)" : "white"}}>
                         {ingredient.quantity>0? ingredient.quantity : ""} {ingredient.unit} {ingredient.name}</li>)}
-                </ul>
+                    </ul>
+                </div>
+                <div>
+                    <legend>Steps</legend>
+                    <ol>    
+                        {recipe.steps.map((step, i) => <li key={i}>{step}</li>)}
+                    </ol>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
