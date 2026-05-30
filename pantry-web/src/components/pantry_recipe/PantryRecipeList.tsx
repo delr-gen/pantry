@@ -2,9 +2,11 @@ import "./PantryRecipeList.css";
 import { useEffect, useState } from "react";
 import LeftOffsetButton from "./LeftOffsetButton";
 import RightOffsetButton from "./RightOffsetButton";
+import RecipeModal from "../view_recipe/RecipeModal";
+import { Link } from "react-router-dom";
 
 
-async function getPantryRecipes(offset: Number) {
+async function getPantryRecipes(offset: number) {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes/${offset}`, {
             method: "GET"
@@ -25,16 +27,29 @@ async function getPantryRecipes(offset: Number) {
 }
 
 
+
+
 export default function PantryRecipeList() {
     const [listRecipes, setListRecipes] = useState("");
+    const [show, setShow] = useState(false);
+    const [id, setId] = useState(null);
     const [offset, setOffset] = useState(0);
+
+    function handleClick(e: React.MouseEvent<HTMLAnchorElement>, id: number) {
+        e.preventDefault(); 
+        setShow(true);
+        setId(id);
+    }
 
     function handlePantryRecipeChange() {
         getPantryRecipes(offset).then(
             (data) => {
                 console.log(data);
                 setListRecipes(data.map(recipe => 
-                    <li key={recipe.id}>{recipe.name}
+                    <li key={recipe.id}>
+                        <a href="#" onClick={(e) => {handleClick(e, recipe.id)}}>
+                            {recipe.name}
+                        </a>
                         {
                             recipe.missingIngredients.length > 0 && 
                             <div className="missing-ingredient">
@@ -64,6 +79,11 @@ export default function PantryRecipeList() {
             <ul>
                 {listRecipes}
             </ul>
+            {show && <RecipeModal
+                id={id}
+                show={show}
+                setShow={setShow}>
+            </RecipeModal>}
         </div>
     )
 }

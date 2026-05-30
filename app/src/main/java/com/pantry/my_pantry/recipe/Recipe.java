@@ -9,6 +9,7 @@ public class Recipe {
     private int serving_size;
     private int mins;
     private String[] ingredients;
+    private String[] steps;
 
     public void setId(int recipe_id) {
         this.recipe_id = recipe_id;
@@ -36,6 +37,16 @@ public class Recipe {
         }
     }
 
+    public void setSteps(String steps) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.steps = mapper.readValue(steps, String[].class);
+        }
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getId() {
         return this.recipe_id;
     }
@@ -54,5 +65,9 @@ public class Recipe {
 
     public String[] getIngredients() {
         return this.ingredients;
+    }
+
+    public String[] getSteps() {
+        return this.steps;
     }
 }

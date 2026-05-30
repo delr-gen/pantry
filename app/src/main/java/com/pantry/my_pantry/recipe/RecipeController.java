@@ -34,10 +34,13 @@ public class RecipeController {
         return recipe;
     }
 
-    @GetMapping("/recipebyid/{id}")
+    @GetMapping("/recipesteps/{id}")
     public Recipe getPantryRecipeById(@PathVariable Integer id) {
         String query = """
-                SELECT * FROM Recipes WHERE id = ?
+                SELECT recipe_id, name, serving_size, mins, JSON_ARRAYAGG(instruction) AS steps
+                FROM Recipes 
+                LEFT JOIN Steps_In_Recipe USING(recipe_id) 
+                WHERE recipe_id = ?
                 """;
 
         RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
