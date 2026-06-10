@@ -1,0 +1,14 @@
+legend {
+    color: white;
+    font-weight: bold;
+}
+
+.title {
+    color: white;
+    font-weight: bold;
+}
+
+.missing-ingredients{
+    font-weight: bold;
+    color: rgb(226, 87, 87)
+}

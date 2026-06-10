@@ -1,3 +1,5 @@
+import "./RecipeModal.css";
+
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
@@ -73,9 +75,9 @@ async function getRecipe(id: number) {
     }    
 }
 
-async function getPantryIngredients(id: number) {
+async function getMissingIngredients(id: number) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipepantryingredients/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/missingingredients/${id}`, {
             method: "GET"
         });
         
@@ -96,38 +98,24 @@ async function getPantryIngredients(id: number) {
 export default function RecipeModal( {id, show, setShow} : RecipeModalProps) {
     const [recipe, setRecipe] = useState(initialRecipe);
     const [ingredients, setIngredients] = useState([]);
-    const [pantryIngredients, setPantryIngredients] = useState(new Set());
+    const [missingIngredients, setMissingIngredients] = useState([]);
     const handleClose = () => setShow(false);
 
     useEffect( () => {
         if (id) {
             getRecipe(id)
                 .then((response) => {
-                    setRecipe(response)});
+                    setRecipe(response);
+            });
             getRecipeIngredients(id)
                 .then((response) => {
                     //const ingredientMap = new Map<number, RecipeIngredient>(response.map((ingredient:RecipeIngredient) => [ingredient.ingredientId, ingredient]));
                     setIngredients(response);
             });
-            getPantryIngredients(id)
+            getMissingIngredients(id)
                 .then((response) => {
-                    /*
-                    const ingredientMap = new Map<number, PantryIngredient[]>();
-                    for (const ingredient of ingredients.values()) {
-                        ingredientMap.set(ingredient.ingredientId, []);
-                    }
-                    for (const ingredient of response) {
-                        if (ingredientMap.has(ingredient.ingredientId)) {
-                            ingredientMap.get(ingredient.ingredientId).push(ingredient);
-                        }
-                        else {
-                            ingredientMap.set(ingredient.ingredientId, [ingredient]);
-                        }
-                    }
-                        */
-                    //const ingredientMap = new Map<number, PantryIngredient[]>(response.map((ingredient:PantryIngredient) => [ingredient.ingredientId, ingredient]));
-                    setPantryIngredients(response)
-            });
+                    setMissingIngredients(response);
+                })
         }
     }, [id])
 
@@ -135,13 +123,20 @@ export default function RecipeModal( {id, show, setShow} : RecipeModalProps) {
         <>
             <Modal className="modal" show={show} onHide={handleClose} centered scrollable>
             <Modal.Header closeButton>
-                <Modal.Title>{recipe.name}</Modal.Title>
+                <Modal.Title className="title">{recipe.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {missingIngredients.length > 0 && 
+                <div className="missing-ingredients">
+                    Warning! Missing {missingIngredients.length} Ingredients:
+                    <ul>{missingIngredients.map(ingredient => <li key={ingredient.ingredientId}>
+                        {ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
+                    </ul>
+                </div>}
                 <div>
                     <legend>Ingredients</legend>
                     <ul>
-                    {ingredients.map(ingredient => <li key={ingredient.ingredientId} style={{color: !(ingredient.ingredientId in pantryIngredients) ?"rgb(223, 100, 100)" : "white"}}>
+                    {ingredients.map(ingredient => <li key={ingredient.ingredientId}>
                         {ingredient.quantity>0? ingredient.quantity : ""} {ingredient.unit} {ingredient.name}</li>)}
                     </ul>
                 </div>

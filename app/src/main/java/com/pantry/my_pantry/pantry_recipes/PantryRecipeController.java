@@ -17,6 +17,9 @@ public class PantryRecipeController {
 
     @GetMapping(value="/pantryrecipes/{offset}")
     public List<PantryRecipe> getRecipesByPantryIngredients(@PathVariable Integer offset) {
+        /*
+            Get list of recipes and missing ingredients
+         */
         String query = """
             SELECT recipe_id, name, missing_ingredients 
             FROM Recipes 

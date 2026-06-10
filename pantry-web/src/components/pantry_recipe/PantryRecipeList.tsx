@@ -76,9 +76,9 @@ export default function PantryRecipeList() {
                 currOffset = {offset}
                 setOffset = {setOffset}
             ></RightOffsetButton>
-            <ul>
+            <ol>
                 {listRecipes}
-            </ul>
+            </ol>
             {show && <RecipeModal
                 id={id}
                 show={show}

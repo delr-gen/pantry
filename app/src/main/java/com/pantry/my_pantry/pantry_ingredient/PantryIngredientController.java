@@ -74,4 +74,26 @@ public class PantryIngredientController {
         return pantryIngredients;
     }
 
+
+    @GetMapping("/expiredpantryingredientsforrecipe/{id}")
+    public List<PantryIngredient> getExpiredPantryIngredientsForRecipe(@PathVariable Integer id) {
+        /*
+            Get expired ingredients for recipe
+        */
+        String query ="""
+                SELECT * 
+                FROM Pantry_Ingredients 
+                WHERE expiration_date < CURRENT_DATE 
+                AND ingredient_id IN (
+                    SELECT ingredient_id 
+                    FROM Recipes 
+                    WHERE recipe_id = ?
+                );
+        """;
+
+        PantryIngredientMapper pantryIngredientMapper = new PantryIngredientMapper();
+        List<PantryIngredient> pantryIngredients = jdbcTemplate.query(query, pantryIngredientMapper, id);
+
+        return pantryIngredients;
+    }
 }
