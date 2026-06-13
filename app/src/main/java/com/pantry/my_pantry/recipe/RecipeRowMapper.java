@@ -12,7 +12,12 @@ public class RecipeRowMapper implements RowMapper<Recipe>{
         
         recipe.setId(rs.getInt("recipe_id"));
         recipe.setName(rs.getString("name"));
-        recipe.setServingSize(rs.getInt("serving_size"));
+        try {
+            recipe.setServingSize(rs.getInt("serving_size"));
+        }
+        catch (SQLSyntaxErrorException sqlSyntaxErrorException) {
+            System.out.println("Serving size not requested");
+        }
         recipe.setMins(rs.getInt("mins"));
         try {
             recipe.setIngredients(rs.getString("ingredients"));

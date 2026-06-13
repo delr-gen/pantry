@@ -44,13 +44,28 @@ public class PantryIngredientController {
         }
 
         // insert ingredient into ingredients if not exists
-        String insertIngredientString = "INSERT INTO Ingredients (name) SELECT ? FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM Ingredients WHERE name=?)";
+        String insertIngredientString = """
+            INSERT INTO Ingredients (name) 
+            SELECT ? 
+            FROM DUAL 
+            WHERE NOT EXISTS (
+                SELECT 1 
+                FROM Ingredients 
+                WHERE name=?)
+            """;
         jdbcTemplate.batchUpdate(
             insertIngredientString,
             batchIngredients
         );
 
-        String insertPantryIngredientString = "INSERT INTO Pantry_Ingredients (pantry_ingredient_id, ingredient_id, date_bought, expiration_date, quantity, unit) VALUES (NULL, (SELECT ingredient_id FROM Ingredients WHERE name=?), ?, ?, ?, ?);";
+        String insertPantryIngredientString = """
+            INSERT INTO Pantry_Ingredients (pantry_ingredient_id, ingredient_id, date_bought, expiration_date, quantity, unit) 
+            VALUES (NULL, (
+                SELECT ingredient_id 
+                FROM Ingredients 
+                WHERE name=?),
+            ?, ?, ?, ?);
+            """;
         return jdbcTemplate.batchUpdate(
             insertPantryIngredientString,
             batchPantryIngredients

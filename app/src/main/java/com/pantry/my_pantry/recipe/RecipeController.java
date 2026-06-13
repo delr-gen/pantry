@@ -19,12 +19,11 @@ public class RecipeController {
     @GetMapping(value="/recipesearch/{name}")
     public Recipe getRecipeByName(@PathVariable String name) {
         // TODO: return nothing when recipe not found
+        name = "%" + name + "%";    
         String query = """
-                SELECT recipe_id, r.name, serving_size, mins, JSON_ARRAYAGG(i.name) AS ingredients
-                FROM Recipes AS r 
-                LEFT JOIN Ingredients_In_Recipe USING (recipe_id) 
-                LEFT JOIN Ingredients AS i USING (ingredient_id) 
-                WHERE r.name=?
+                SELECT recipe_id, r.name
+                FROM Recipes AS r
+                WHERE r.name LIKE ?
                 GROUP BY recipe_id
             """;
 
@@ -47,5 +46,14 @@ public class RecipeController {
         Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, id);
         
         return recipe;
+    }
+
+    @GetMapping("/recipelength")
+    public int getRecipeLength() {
+        String query = "SELECT COUNT(*) FROM Recipes";
+
+        int res = jdbcTemplate.queryForObject(query, Integer.class);
+
+        return res;
     }
 }

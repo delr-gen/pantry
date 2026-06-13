@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import LeftOffsetButton from "./LeftOffsetButton";
 import RightOffsetButton from "./RightOffsetButton";
 import RecipeModal from "../view_recipe/RecipeModal";
-import { Link } from "react-router-dom";
 
 
-async function getPantryRecipes(offset: number) {
+async function getPantryRecipes(offset: number, limit: number) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes/${offset}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes/${offset}/${limit}`, {
             method: "GET"
         });
         
@@ -27,6 +26,25 @@ async function getPantryRecipes(offset: number) {
 }
 
 
+async function getRecipeLength() {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipelength`, {
+            method: "GET"
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        else {
+            return response.json();
+        }
+    }
+    catch (error: unknown) {
+        if (error instanceof Error){
+            console.error(error.message);
+        }
+    }    
+}
 
 
 export default function PantryRecipeList() {
@@ -34,6 +52,10 @@ export default function PantryRecipeList() {
     const [show, setShow] = useState(false);
     const [id, setId] = useState(null);
     const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+    const [recipeLength, setRecipeLength] = useState(0);
+
 
     function handleClick(e: React.MouseEvent<HTMLAnchorElement>, id: number) {
         e.preventDefault(); 
@@ -42,7 +64,7 @@ export default function PantryRecipeList() {
     }
 
     function handlePantryRecipeChange() {
-        getPantryRecipes(offset).then(
+        getPantryRecipes(offset, limit).then(
             (data) => {
                 console.log(data);
                 setListRecipes(data.map(recipe => 
@@ -65,16 +87,27 @@ export default function PantryRecipeList() {
             handlePantryRecipeChange();
     }, [offset])
 
+    useEffect(() => {
+            getRecipeLength().then(response => setRecipeLength(response));
+    })
+
     return (
         <div>
             <legend>Recipes</legend>
             <LeftOffsetButton
                 currOffset = {offset}
                 setOffset = {setOffset}
+                currPage = {page}
+                setPage = {setPage}
+                limit = {limit}
             ></LeftOffsetButton>
             <RightOffsetButton
                 currOffset = {offset}
                 setOffset = {setOffset}
+                currPage = {page}
+                setPage = {setPage}
+                limit = {limit}
+                maxLen = {recipeLength}
             ></RightOffsetButton>
             <ol>
                 {listRecipes}

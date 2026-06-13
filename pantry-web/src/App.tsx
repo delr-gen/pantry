@@ -1,6 +1,6 @@
 import AddIngredientModal from './components/add_ingredient/AddIngredientModal';
 import SearchRecipe from './components/search_bar/SearchRecipe';
-import PantryRecipeList from './components/pantry_recipe/PantryRecipeList';
+import PantryRecipeList from './components/pantry_recipe_list/PantryRecipeList';
 import "./App.css"
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <SearchRecipe/>
         <AddIngredientModal/>
       </div>
-      <div>
+      <div className="pantry-recipe-container">
         <PantryRecipeList/>
       </div>
     </div>

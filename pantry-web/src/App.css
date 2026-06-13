@@ -17,6 +17,10 @@
   }
 }
 
+.pantry-list-container {
+  overflow-y: auto;
+}
+
 .hero {
   position: relative;
 

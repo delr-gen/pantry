@@ -15,10 +15,10 @@ public class PantryRecipeController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @GetMapping(value="/pantryrecipes/{offset}")
-    public List<PantryRecipe> getRecipesByPantryIngredients(@PathVariable Integer offset) {
+    @GetMapping(value="/pantryrecipes/{offset}/{limit}")
+    public List<PantryRecipe> getRecipesByPantryIngredients(@PathVariable Integer offset, @PathVariable Integer limit) {
         /*
-            Get list of recipes and missing ingredients
+            Get list of recipes and missing ingredients, ordered by number of missing ingredients
          */
         String query = """
             SELECT recipe_id, name, missing_ingredients 
@@ -34,12 +34,12 @@ public class PantryRecipeController {
             USING (recipe_id) 
             GROUP BY recipe_id 
             ORDER BY JSON_LENGTH(missing_ingredients)
-            LIMIT 10
+            LIMIT ?
             OFFSET ?;
         """;
 
         PantryRecipeRowMapper pantryRecipeRowMapper = new PantryRecipeRowMapper();
-        List<PantryRecipe> pantryRecipes = jdbcTemplate.query(query, pantryRecipeRowMapper, offset);
+        List<PantryRecipe> pantryRecipes = jdbcTemplate.query(query, pantryRecipeRowMapper, limit, offset);
 
         return pantryRecipes;
     }
