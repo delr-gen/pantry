@@ -5,13 +5,6 @@ import AddIngredientPromptItem from './AddIngredientPromptItem';
 
 
 export default function AddIngredientModal() {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setShow(false);
-    setIngredients([initialValues]);
-  }
-
   const initialValues = {
     name: "",
     quantity: 1,
@@ -19,14 +12,12 @@ export default function AddIngredientModal() {
     date_bought: new Date().toISOString().split('T')[0],
     expiration_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   }
-
   const [ingredients, setIngredients] = useState([initialValues]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
-      const { name, value } = event.target;
-      let newIngredients = [...ingredients];
-      newIngredients[i][name] = value;
-      setIngredients(newIngredients);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    setIngredients([initialValues]);
   }
 
   const handleAddIngredientPrompt = () => {
@@ -66,8 +57,13 @@ export default function AddIngredientModal() {
                 {ingredients.map((ingredient, i) => (
                   <div key={i}>
                     Ingredient #{i+1}:
-                    <AddIngredientPromptItem handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}/>
-                      <br></br>
+                    <AddIngredientPromptItem 
+                      /*handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}*/ 
+                      ingredients={ingredients}
+                      setIngredients={setIngredients}
+                      i={i}
+                    />
+                    <br></br>
                   </div>
                 ))}
             </fieldset>
