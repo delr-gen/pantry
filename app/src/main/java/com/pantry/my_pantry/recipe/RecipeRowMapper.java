@@ -18,7 +18,12 @@ public class RecipeRowMapper implements RowMapper<Recipe>{
         catch (SQLSyntaxErrorException sqlSyntaxErrorException) {
             System.out.println("Serving size not requested");
         }
-        recipe.setMins(rs.getInt("mins"));
+        try {
+            recipe.setMins(rs.getInt("mins"));
+        }
+        catch (SQLSyntaxErrorException sqlSyntaxErrorException) {
+            System.out.println("Minutes not requested");
+        }
         try {
             recipe.setIngredients(rs.getString("ingredients"));
         }

@@ -1,20 +1,22 @@
 interface SearchBarProps {
-  searchEvent: (data: FormData) => void;
   searchText: string;
   searchName: string;
   buttonText: string;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchBar ({searchEvent, searchText, searchName, buttonText}: SearchBarProps) {
-  // TODO: use state for user input
-
+export default function SearchBar ({searchText, searchName, buttonText, handleInputChange}: SearchBarProps) {
       return (
-        <form action={searchEvent}>
-        <label>
-            {searchText}
-            <input name={searchName}/>
-        </label>
-        <button type="submit">{buttonText}</button>
+        <form>
+          <label>
+              {searchText}
+              <input 
+                name={searchName}
+                type="text"
+                onChange={handleInputChange}
+              />
+          </label>
+          <button type="submit">{buttonText}</button>
         </form>
       );
 }

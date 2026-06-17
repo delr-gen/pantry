@@ -1,4 +1,6 @@
 package main.java.com.pantry.my_pantry.recipe;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +19,7 @@ public class RecipeController {
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping(value="/recipesearch/{name}")
-    public Recipe getRecipeByName(@PathVariable String name) {
+    public List<Recipe> getRecipeByName(@PathVariable String name) {
         // TODO: return nothing when recipe not found
         name = "%" + name + "%";    
         String query = """
@@ -25,12 +27,13 @@ public class RecipeController {
                 FROM Recipes AS r
                 WHERE r.name LIKE ?
                 GROUP BY recipe_id
+                LIMIT 5
             """;
 
         RecipeRowMapper recipeRowMapper = new RecipeRowMapper();
-        Recipe recipe = jdbcTemplate.queryForObject(query, recipeRowMapper, name);
+        List<Recipe> recipes = jdbcTemplate.query(query, recipeRowMapper, name);
 
-        return recipe;
+        return recipes;
     }
 
     @GetMapping("/recipesteps/{id}")
