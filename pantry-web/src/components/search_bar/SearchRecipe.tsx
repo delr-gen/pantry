@@ -1,9 +1,20 @@
-import 'react-bootstrap-typeahead/css/Typeahead.css';
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from 'react';
 
+interface Recipe{
+    id: number,
+    name: string,
+    mins: number,
+    servingSize: number,
+    steps: string[]
+};
+
+function label(recipe: Recipe) {
+    return `${recipe.name}`;
+}
+
 async function search(query: string) {
-    alert(`You searched for '${query}'`);
+    //alert(`You searched for '${query}'`);
     if (typeof query === "string"){
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipesearch/${query}`, {
@@ -16,6 +27,7 @@ async function search(query: string) {
             else {
                 const data = await response.json();
                 console.log(data);
+                return data;
             }
         }
         catch (error: unknown) {
@@ -30,15 +42,18 @@ async function search(query: string) {
 
 
 export default function SearchRecipe() {
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState([]);
+    const [options, setOptions] = useState([]);
     
-    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setSearchQuery(event.target.value);
+    function handleInputChange(text:string, event: React.ChangeEvent<HTMLInputElement>) {
+        setSearchQuery([text]);
     }
 
     useEffect(() => {
-        if (searchQuery != "") {
-            search(searchQuery)
+        if (searchQuery.length != 0) {
+            search(searchQuery[0]).then((response) => {
+                setOptions(response)
+            })
         }
     }, 
     [searchQuery]);
@@ -46,10 +61,11 @@ export default function SearchRecipe() {
     return (
         <div>
             <SearchBar 
-                searchText="Search Recipe"
-                searchName="recipequery"
-                buttonText="Enter"
-                handleInputChange={handleInputChange}>
+                setQuery={setSearchQuery}
+                handleInputChange={handleInputChange}
+                options={options}
+                label={label}
+            >
             </SearchBar>
         </div>
     )

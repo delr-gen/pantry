@@ -1,23 +1,27 @@
+import { Typeahead } from 'react-bootstrap-typeahead';
+
+
 interface SearchBarProps {
-  searchText: string;
-  searchName: string;
-  buttonText: string;
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setQuery: (query: string[]) => void
+  handleInputChange: (text:string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  options: string[]
+  label: (any) => string
 }
 
-export default function SearchBar ({searchText, searchName, buttonText, handleInputChange}: SearchBarProps) {
+export default function SearchBar ({setQuery, handleInputChange, options, label}: SearchBarProps) {
       return (
         <form>
-          <label>
-              {searchText}
-              <input 
-                name={searchName}
-                type="text"
-                onChange={handleInputChange}
-              />
-          </label>
-          <button type="submit">{buttonText}</button>
+          <Typeahead
+            id="basic-typeahead-single"
+            labelKey={label}
+            onChange={setQuery}
+            onInputChange={handleInputChange}
+            options={options}
+          >
+          </Typeahead>
+          <button type="submit">Search</button>
         </form>
+
       );
 }
 

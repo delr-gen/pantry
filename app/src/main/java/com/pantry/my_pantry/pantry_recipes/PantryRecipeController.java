@@ -16,7 +16,7 @@ public class PantryRecipeController {
     private JdbcTemplate jdbcTemplate;
 
     @GetMapping(value="/pantryrecipes/{offset}/{limit}")
-    public List<PantryRecipe> getRecipesByPantryIngredients(@PathVariable Integer offset, @PathVariable Integer limit) {
+    public List<PantryRecipe> getAllRecipes(@PathVariable Integer offset, @PathVariable Integer limit) {
         /*
             Get list of recipes and missing ingredients, ordered by number of missing ingredients
          */
@@ -40,6 +40,37 @@ public class PantryRecipeController {
 
         PantryRecipeRowMapper pantryRecipeRowMapper = new PantryRecipeRowMapper();
         List<PantryRecipe> pantryRecipes = jdbcTemplate.query(query, pantryRecipeRowMapper, limit, offset);
+
+        return pantryRecipes;
+    }
+
+    @GetMapping(value="/pantryrecipes/{offset}/{limit}/{name}")
+    public List<PantryRecipe> getRecipesByName(@PathVariable Integer offset, @PathVariable Integer limit, @PathVariable String name) {
+        /*
+            Get list of recipes and missing ingredients, ordered by number of missing ingredients
+         */
+        name = "%" + name + "%";
+        String query = """
+            SELECT recipe_id, name, missing_ingredients 
+            FROM Recipes 
+            LEFT JOIN (
+                SELECT recipe_id, JSON_ARRAYAGG(i.name) AS missing_ingredients 
+                FROM Ingredients_In_Recipe AS p, Ingredients AS i 
+                WHERE p.ingredient_id = i.ingredient_id AND p.ingredient_id NOT IN (
+                    SELECT ingredient_id FROM Pantry_Ingredients AS c 
+                ) GROUP BY recipe_id 
+                ORDER BY COUNT(recipe_id)
+            ) AS r 
+            USING (recipe_id) 
+            WHERE name LIKE ?
+            GROUP BY recipe_id 
+            ORDER BY JSON_LENGTH(missing_ingredients)
+            LIMIT ?
+            OFFSET ?;
+        """;
+
+        PantryRecipeRowMapper pantryRecipeRowMapper = new PantryRecipeRowMapper();
+        List<PantryRecipe> pantryRecipes = jdbcTemplate.query(query, pantryRecipeRowMapper, name, limit, offset);
 
         return pantryRecipes;
     }
