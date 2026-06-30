@@ -146,7 +146,7 @@ export default function PantryRecipeList() {
                 limit = {limit}
                 maxLen = {recipeLength}
             ></RightOffsetButton>
-            <ol>
+            <ol className = "pantry-recipe-list">
                 {listRecipes}
             </ol>
             {show && <RecipeModal

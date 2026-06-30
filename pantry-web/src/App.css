@@ -17,10 +17,6 @@
   }
 }
 
-.pantry-list-container {
-  overflow-y: auto;
-}
-
 .hero {
   position: relative;
 
@@ -189,5 +185,5 @@
 
 .container {
   display: grid;
-  grid-template-columns: 300px 500px;
+  grid-template-columns: 2fr 4fr;
 }

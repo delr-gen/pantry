@@ -1,0 +1,13 @@
+ol {
+    max-height: 80vh; 
+    overflow-y: auto;
+}
+
+.ingredient-item {
+    color: white
+}
+
+.ingredient-dates {
+    font-style: italic;
+    padding-left: 30px
+}
