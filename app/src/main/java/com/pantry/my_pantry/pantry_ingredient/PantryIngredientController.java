@@ -111,4 +111,20 @@ public class PantryIngredientController {
 
         return pantryIngredients;
     }
+
+    @GetMapping("/pantryingredients")
+    public List<PantryIngredient> getPantryIngredients() {
+        String query = """
+                SELECT *
+                FROM Pantry_Ingredients
+                LEFT JOIN Ingredients
+                USING (ingredient_id)
+                ORDER BY name
+                """;
+
+        PantryIngredientMapper pantryIngredientMapper = new PantryIngredientMapper();
+        List<PantryIngredient> pantryIngredients = jdbcTemplate.query(query, pantryIngredientMapper);
+
+        return pantryIngredients;
+    }
 }

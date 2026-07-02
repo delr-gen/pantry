@@ -44,7 +44,7 @@ export default function pantryIngredientList() {
     return (
         <ol>
             {pantryIngredients.map(ingredient => (
-                <li>
+                <li key={ingredient.pantryIngredientId}>
                     <div className="ingredient-item">{ingredient.quantity} {ingredient.unit} {ingredient.name}</div>
                     <div className="ingredient-dates">
                         Bought on {ingredient.date_bought}
