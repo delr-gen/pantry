@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './AddIngredientModal.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddIngredientPromptItem from './AddIngredientPromptItem';
-import FileUpload from './camera/FileUpload';
+import FileUpload from './file_upload/FileUpload';
 
 
 export default function AddIngredientModal() {
@@ -29,8 +29,6 @@ export default function AddIngredientModal() {
     // prevent propagation
     event.preventDefault();
 
-    //alert(`${ingredients[0].name}'`);
-    //console.log(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients/${JSON.stringify(ingredients)}`);
     await fetch(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients`, {
       method: "POST",
       headers: {
@@ -62,7 +60,6 @@ export default function AddIngredientModal() {
                   <div key={i}>
                     Ingredient #{i+1}:
                     <AddIngredientPromptItem 
-                      /*handleInputChange={(event: React.ChangeEvent<HTMLInputElement>) => handleInputChange(event, i)}*/ 
                       ingredients={ingredients}
                       setIngredients={setIngredients}
                       i={i}

@@ -5,8 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from PIL import Image
 from dotenv import load_dotenv
-from pydantic import BaseModel
-from typing import Annotated
 
 # Load variables from .env file into the environment
 load_dotenv() 
@@ -34,7 +32,10 @@ async def root(file: UploadFile):
         api_key=os.getenv("ROBOFLOW_API_KEY")
     )
 
-    result = CLIENT.infer(img, model_id="gens-workspace-mlt3g/my-pantry-project-4-rfdetr-small-t1")
+    workspace_id = os.getenv("ROBOFLOW_WORKSPACE_ID")
+    model_id = os.getenv("ROBOFLOW_MODEL_ID")
+
+    result = CLIENT.infer(img, model_id=f"{workspace_id}/{model_id}")
     print(result)
 
     return result
