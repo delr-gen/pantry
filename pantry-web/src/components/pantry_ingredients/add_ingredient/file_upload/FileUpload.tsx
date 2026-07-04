@@ -11,11 +11,9 @@ interface cameraProps {
     setIngredients: (ingredients: ingredient[]) => void
 }
 
-async function fetchImage(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+async function fetchImage(file: File) {
     const formData = new FormData()
-    formData.append("file", event.target[0]["files"][0])
+    formData.append("file", file)
     try {
         const response = await fetch("http://0.0.0.0:8000/ingredients", {
             method: 'POST',
@@ -36,16 +34,25 @@ async function fetchImage(event: React.SubmitEvent<HTMLFormElement>) {
 
 export default function FileUpload( {ingredients, setIngredients}: cameraProps ) {
     function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-        fetchImage(event).then(response => {
+        event.preventDefault();
+        const file = event.target[0]["files"][0];
+
+        fetchImage(file).then(response => {
             const temp = {}
+            let date_bought = new Date().toISOString().split('T')[0];
+            let expiration_date = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            if (file.lastModifiedDate) {
+                date_bought = file.lastModifiedDate.toISOString().split("T")[0];
+                expiration_date = new Date(file.lastModified + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            }
             for (const prediction of response.predictions) {
                 if (!(prediction.class in temp)) {
                     temp[prediction.class] = {
                         name: prediction.class, 
                         quantity: 0, 
                         unit: "unit", 
-                        date_bought: new Date().toISOString().split('T')[0],
-                        expiration_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                        date_bought: date_bought,
+                        expiration_date: expiration_date
                     }
                 }
                 temp[prediction.class].quantity += 1;

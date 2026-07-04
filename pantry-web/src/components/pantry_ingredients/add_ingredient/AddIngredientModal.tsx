@@ -3,9 +3,13 @@ import './AddIngredientModal.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddIngredientPromptItem from './AddIngredientPromptItem';
 import FileUpload from './file_upload/FileUpload';
+import WebCamCapture from './file_upload/WebCamCapture';
 
+interface addIngredientModalProps {
+  setIngredientListIsUpdated: (isUpdated: boolean) => void
+}
 
-export default function AddIngredientModal() {
+export default function AddIngredientModal( { setIngredientListIsUpdated }: addIngredientModalProps) {
   const initialValues = {
     name: "",
     quantity: 1,
@@ -25,18 +29,43 @@ export default function AddIngredientModal() {
     setIngredients([...ingredients, initialValues])
   }
 
-  async function handleSubmitIngredients(event: React.ChangeEvent<HTMLFormElement>) {
+  async function postIngredients(event: React.ChangeEvent<HTMLFormElement>) {
     // prevent propagation
     event.preventDefault();
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ingredients)
+      });
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      else {
+        return true;
+      }
+    }
+    catch (error: unknown) {
+      if (error instanceof Error){
+          console.error(error.message);
+          return false;
+      }
+    }   
+  }
 
-    await fetch(`${import.meta.env.VITE_API_URL}/api/add_pantry_ingredients`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(ingredients)
+  const handleSubmitIngredients = (event: React.ChangeEvent<HTMLFormElement>) => {
+    postIngredients(event).then(response => {
+      if (response) {
+        alert("Success");
+        setIngredientListIsUpdated(false);
+        handleClose();
+      }
+      else {
+        alert("An error has occured");
+      }
     });
-    handleClose();
   }
 
   return (
@@ -54,6 +83,7 @@ export default function AddIngredientModal() {
             ingredients={ingredients}
             setIngredients={setIngredients}>
           </FileUpload>
+          <WebCamCapture></WebCamCapture>
           <form onSubmit={handleSubmitIngredients}>
             <fieldset>
                 {ingredients.map((ingredient, i) => (
@@ -62,6 +92,7 @@ export default function AddIngredientModal() {
                     <AddIngredientPromptItem 
                       ingredients={ingredients}
                       setIngredients={setIngredients}
+                      setIngredientListIsUpdated={setIngredientListIsUpdated}
                       i={i}
                     />
                     <br></br>

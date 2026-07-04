@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 interface ingredient {
     name: string,
     quantity: number,
@@ -8,17 +10,24 @@ interface ingredient {
 
 interface AddIngredientPromptProps {
     ingredients: ingredient[]
-    setIngredients: (newIngredients: ingredient[]) => void
+    setIngredients: (newIngredients: ingredient[]) => void,
+    setIngredientListIsUpdated: (isUpdated: boolean) => void,
     i: number
 };
 
 
-export default function AddIngredientPromptItem( { ingredients, setIngredients, i}: AddIngredientPromptProps) {
+export default function AddIngredientPromptItem( { ingredients, setIngredients, setIngredientListIsUpdated, i}: AddIngredientPromptProps) {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         let newIngredients = [...ingredients];
         newIngredients[i][name] = value;
         setIngredients(newIngredients);
+    }
+
+    const deleteIngredientPromptItem = (i: number) => {
+        ingredients.splice(i, 1);
+        setIngredients(ingredients);
+        setIngredientListIsUpdated(false)
     }
 
     return (
@@ -28,31 +37,34 @@ export default function AddIngredientPromptItem( { ingredients, setIngredients, 
                 type="text"
                 onChange={handleInputChange}
                 placeholder="ex: cabbage, beef stock, ..."
-                defaultValue={ingredients[i].name}/>
+                value={ingredients[i].name}
+                required/>
             <br></br>
             Quantity: <input
                 name="quantity"
                 type="number"
                 onChange={handleInputChange}
-                defaultValue={ingredients[i].quantity} />
+                value={ingredients[i].quantity} />
             <br></br>
             Unit: <input
                 name="unit"
                 type="text"
                 onChange={handleInputChange}
-                defaultValue={ingredients[i].unit}/>
+                value={ingredients[i].unit}/>
             <br></br>
             Date Bought: <input
                 name="date_bought"
                 type="date"
                 onChange={handleInputChange}
-                defaultValue={ingredients[i].date_bought}/>
+                value={ingredients[i].date_bought}/>
             <br></br>
             Expiration Date: <input
                 name="expiration_date"
                 type="date"
                 onChange={handleInputChange}
-                defaultValue={ingredients[i].expiration_date}/>
+                value={ingredients[i].expiration_date}/>
+            <br></br>
+            {<Button disabled={ingredients.length == 1} onClick={() => {deleteIngredientPromptItem(i)}}>Delete</Button>}
         </div>
     )
 }

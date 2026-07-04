@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 app = FastAPI()
-origins = ["http://localhost:5173"]
+origins = ["http://localhost:5173", "https://localhost:5173"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,           # List of allowed origins

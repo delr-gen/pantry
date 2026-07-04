@@ -127,4 +127,16 @@ public class PantryIngredientController {
 
         return pantryIngredients;
     }
+
+    @PostMapping("/deleteingredients")
+    public int[] deletePantryIngredients(@RequestBody List<Integer> pantryIngedientIds) {
+        String deleteString = "DELETE FROM Pantry_Ingredients WHERE pantry_ingredient_id = ?";
+
+        List<Object[]> batchArgs = new ArrayList<>();
+        for (Integer id : pantryIngedientIds) {
+            batchArgs.add(new Object[] { id });
+        }
+
+        return jdbcTemplate.batchUpdate(deleteString, batchArgs);
+    }
 }
