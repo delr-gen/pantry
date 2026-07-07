@@ -83,7 +83,10 @@ export default function AddIngredientModal( { setIngredientListIsUpdated }: addI
             ingredients={ingredients}
             setIngredients={setIngredients}>
           </FileUpload>
-          <WebCamCapture></WebCamCapture>
+          <WebCamCapture
+            ingredients={ingredients}
+            setIngredients={setIngredients}>              
+          </WebCamCapture>
           <form onSubmit={handleSubmitIngredients}>
             <fieldset>
                 {ingredients.map((ingredient, i) => (

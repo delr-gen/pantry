@@ -1,9 +1,24 @@
 import Webcam from "react-webcam";
 import React from "react";
 
-async function fetchImage(file: File) {
+interface ingredient {
+    name: string,
+    quantity: number,
+    unit: string,
+    date_bought: string,
+    expiration_date: string
+  }
+
+interface webCamCaptureProps {
+    ingredients: ingredient[]
+    setIngredients: (ingredients: ingredient[]) => void
+}
+
+async function fetchImage(data: string) {
+    const res = await fetch(data)
+    const blob = await res.blob()
     const formData = new FormData()
-    formData.append("file", file)
+    formData.append("file", blob)
     try {
         const response = await fetch("http://0.0.0.0:8000/ingredients", {
             method: 'POST',
@@ -23,13 +38,34 @@ async function fetchImage(file: File) {
 }
 
 
-export default function WebCamCapture() {
+export default function WebCamCapture({ingredients, setIngredients}: webCamCaptureProps) {
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(
         () => {
+            const temp = {}
             const imageSrc = webcamRef.current.getScreenshot();
+            console.log(imageSrc)
             fetchImage(imageSrc).then((response) => {
                 console.log(response)
+                const today = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                for (const prediction of response.predictions) {
+                    if (!(prediction.class in temp)) {
+                        temp[prediction.class] = {
+                            name: prediction.class, 
+                            quantity: 0, 
+                            unit: "unit", 
+                            date_bought: today,
+                            expiration_date: today
+                        }
+                    }
+                    temp[prediction.class].quantity += 1;
+                }
+                console.log(temp)
+                const newIngredients = [];
+                for (const [key, value] of Object.entries(temp)) {
+                    newIngredients.push(value)
+                }
+                setIngredients([...newIngredients, ...ingredients])
             });
         },
         [webcamRef]

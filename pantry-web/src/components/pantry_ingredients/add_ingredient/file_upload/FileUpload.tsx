@@ -6,7 +6,7 @@ interface ingredient {
     expiration_date: string
   }
 
-interface cameraProps {
+interface fileUploadProps {
     ingredients: ingredient[]
     setIngredients: (ingredients: ingredient[]) => void
 }
@@ -32,7 +32,7 @@ async function fetchImage(file: File) {
     }
 }
 
-export default function FileUpload( {ingredients, setIngredients}: cameraProps ) {
+export default function FileUpload( {ingredients, setIngredients}: fileUploadProps ) {
     function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         const file = event.target[0]["files"][0];

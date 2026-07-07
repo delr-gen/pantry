@@ -1,6 +1,6 @@
 import io
 from inference_sdk import InferenceHTTPClient
-from fastapi import FastAPI, File, Request, Form, UploadFile
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from PIL import Image
