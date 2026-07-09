@@ -19,7 +19,6 @@ export default function PantryIngredientContainer() {
                 deleteList={deleteList}
                 setDeleteList={setDeleteList}
                 setIngredientListIsUpdated={setIngredientListIsUpdated}>
-
             </DeleteIngredientButton>
             <PantryIngredientList
                 ingredientListIsUpdated = {ingredientListIsUpdated}

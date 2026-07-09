@@ -136,6 +136,11 @@ export default function PantryRecipeList() {
                     type="text"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRecipeQuery(event.target.value)}
                     placeholder="Search Recipe Names"
+                    onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                        }
+                    }} 
                 >
                 </input>
             </form>

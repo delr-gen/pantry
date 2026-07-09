@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -138,5 +139,23 @@ public class PantryIngredientController {
         }
 
         return jdbcTemplate.batchUpdate(deleteString, batchArgs);
+    }
+
+    @GetMapping("/searchpantry")
+    public List<PantryIngredient> searchPantryIngredients(@RequestParam("name") String name) {
+        name = "%" + name + "%";
+        String query = """
+                SELECT *
+                FROM Pantry_Ingredients
+                LEFT JOIN Ingredients
+                USING (ingredient_id)
+                WHERE name LIKE ?
+                ORDER BY name
+        """;
+
+        PantryIngredientMapper pantryIngredientMapper = new PantryIngredientMapper();
+        List<PantryIngredient> pantryIngredients = jdbcTemplate.query(query, pantryIngredientMapper, name);
+
+        return pantryIngredients;
     }
 }
