@@ -150,7 +150,7 @@ public class PantryIngredientController {
                 LEFT JOIN Ingredients
                 USING (ingredient_id)
                 WHERE name LIKE ?
-                ORDER BY name
+                ORDER BY name ASC, expiration_date ASC
         """;
 
         PantryIngredientMapper pantryIngredientMapper = new PantryIngredientMapper();
