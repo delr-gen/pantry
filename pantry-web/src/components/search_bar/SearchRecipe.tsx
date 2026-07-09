@@ -45,7 +45,7 @@ export default function SearchRecipe() {
     const [searchQuery, setSearchQuery] = useState([]);
     const [options, setOptions] = useState([]);
     
-    function handleInputChange(text:string, event: React.ChangeEvent<HTMLInputElement>) {
+    function handleInputChange(text:string) {
         setSearchQuery([text]);
     }
 

@@ -34,9 +34,12 @@ async function getPantryRecipes(offset: number, limit: number, query: string) {
 }
 
 
-async function getRecipeLength() {
+async function getRecipeLength(query: string) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipelength`, {
+        const url = new URL(`${import.meta.env.VITE_API_URL}/api/recipelength`);
+        const params = {"name": query};
+        url.search = new URLSearchParams(params).toString();
+        const response = await fetch(url, {
             method: "GET"
         });
         
@@ -94,6 +97,11 @@ export default function PantryRecipeList() {
                 console.log(data);
                 handleRecipeListChange(data);      
             });
+        getRecipeLength(recipeQuery).then(
+            (data) => {
+                setRecipeLength(data);
+            }
+        )
     }
 
     useEffect(() => {
@@ -101,7 +109,7 @@ export default function PantryRecipeList() {
     }, [offset])
 
     useEffect(() => {
-            getRecipeLength().then(response => setRecipeLength(response));
+            getRecipeLength(recipeQuery).then(response => setRecipeLength(response));
     })
 
     useEffect(() => {

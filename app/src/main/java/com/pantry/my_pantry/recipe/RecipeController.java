@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,10 +53,12 @@ public class RecipeController {
     }
 
     @GetMapping("/recipelength")
-    public int getRecipeLength() {
-        String query = "SELECT COUNT(*) FROM Recipes";
+    public int getRecipeLength(@RequestParam("name") String name) {
+        name = "%" + name + "%";
 
-        int res = jdbcTemplate.queryForObject(query, Integer.class);
+        String query = "SELECT COUNT(*) FROM Recipes WHERE name LIKE ?";
+
+        int res = jdbcTemplate.queryForObject(query, Integer.class, name);
 
         return res;
     }

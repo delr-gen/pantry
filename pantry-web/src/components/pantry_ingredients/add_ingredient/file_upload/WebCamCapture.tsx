@@ -44,7 +44,6 @@ export default function WebCamCapture({ingredients, setIngredients}: webCamCaptu
         () => {
             const temp = {}
             const imageSrc = webcamRef.current.getScreenshot();
-            console.log(imageSrc)
             fetchImage(imageSrc).then((response) => {
                 console.log(response)
                 const today = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -60,7 +59,6 @@ export default function WebCamCapture({ingredients, setIngredients}: webCamCaptu
                     }
                     temp[prediction.class].quantity += 1;
                 }
-                console.log(temp)
                 const newIngredients = [];
                 for (const [key, value] of Object.entries(temp)) {
                     newIngredients.push(value)
