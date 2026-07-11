@@ -1,13 +1,13 @@
 import { Button } from "react-bootstrap";
 
 interface DeleteIngredientButtonProps {
-    deleteList: number[],
-    setDeleteList: (newDeleteList: number[]) => void
+    selected: number[],
+    setSelected: (newSelected: number[]) => void
     setIngredientListIsUpdated: (isUpdated: boolean) => void
 }
 
 
-export default function DeleteIngredientButton( {deleteList, setDeleteList, setIngredientListIsUpdated}: DeleteIngredientButtonProps) {
+export default function DeleteIngredientButton( {selected, setSelected, setIngredientListIsUpdated}: DeleteIngredientButtonProps) {
     async function deleteIngredients() {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/deleteingredients`, {
@@ -15,7 +15,7 @@ export default function DeleteIngredientButton( {deleteList, setDeleteList, setI
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(deleteList)
+                body: JSON.stringify(selected)
             });
             
             if (!response.ok) {
@@ -37,7 +37,7 @@ export default function DeleteIngredientButton( {deleteList, setDeleteList, setI
         deleteIngredients().then(response => {
             if (response) {
                 alert("Success");
-                setDeleteList([]);
+                setSelected([]);
                 setIngredientListIsUpdated(false);
             }
             else {
@@ -47,6 +47,6 @@ export default function DeleteIngredientButton( {deleteList, setDeleteList, setI
     }
 
     return (
-        <Button onClick={handleClick} disabled={deleteList.length == 0}>Delete {deleteList.length} Ingredients</Button>
+        <Button onClick={handleClick} disabled={selected.length == 0}>Delete {selected.length} Ingredients</Button>
     )
 }

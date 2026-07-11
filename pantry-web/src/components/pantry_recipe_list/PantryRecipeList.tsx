@@ -4,21 +4,24 @@ import LeftOffsetButton from "./LeftOffsetButton";
 import RightOffsetButton from "./RightOffsetButton";
 import RecipeModal from "../view_recipe/RecipeModal";
 
+interface PantryRecipeListProps {
+    ingredientListIsUpdated: boolean;
+}
 
 async function getPantryRecipes(offset: number, limit: number, query: string) {
     let response = null;
     try {
-        if (query != "") {
-            response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes/${offset}/${limit}/${query}`, {
-                method: "GET"
-            });
-        }
-        else {
-            response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes/${offset}/${limit}`, {
-                method: "GET"
-            });
-        }
+        const params = {
+            offset: offset.toString(),
+            limit: limit.toString(),
+            name: query
+        };
+        const paramString = new URLSearchParams(params).toString();
         
+        response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes?${paramString}`, {
+            method: "GET"
+        });
+
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -58,7 +61,7 @@ async function getRecipeLength(query: string) {
 }
 
 
-export default function PantryRecipeList() {
+export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecipeListProps) {
     const [listRecipes, setListRecipes] = useState("");
     const [show, setShow] = useState(false);
     const [id, setId] = useState(null);
@@ -94,7 +97,6 @@ export default function PantryRecipeList() {
     function handlePantryRecipeChange() {
         getPantryRecipes(offset, limit, recipeQuery).then(
             (data) => {
-                console.log(data);
                 handleRecipeListChange(data);      
             });
         getRecipeLength(recipeQuery).then(
@@ -106,7 +108,7 @@ export default function PantryRecipeList() {
 
     useEffect(() => {
             handlePantryRecipeChange();
-    }, [offset])
+    }, [offset, ingredientListIsUpdated])
 
     useEffect(() => {
             getRecipeLength(recipeQuery).then(response => setRecipeLength(response));

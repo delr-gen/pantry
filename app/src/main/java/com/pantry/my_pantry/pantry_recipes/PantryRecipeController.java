@@ -2,9 +2,11 @@ package main.java.com.pantry.my_pantry.pantry_recipes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class PantryRecipeController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
 
     @GetMapping(value="/pantryrecipes/{offset}/{limit}")
     public List<PantryRecipe> getAllRecipes(@PathVariable Integer offset, @PathVariable Integer limit) {
@@ -44,8 +47,8 @@ public class PantryRecipeController {
         return pantryRecipes;
     }
 
-    @GetMapping(value="/pantryrecipes/{offset}/{limit}/{name}")
-    public List<PantryRecipe> getRecipesByName(@PathVariable Integer offset, @PathVariable Integer limit, @PathVariable String name) {
+    @GetMapping(value="/pantryrecipes")
+    public List<PantryRecipe> getRecipesByName(@RequestParam("offset") Integer offset, @RequestParam("limit") Integer limit, @RequestParam(value="name", required=false, defaultValue="") String name) {
         /*
             Get list of recipes and missing ingredients, ordered by number of missing ingredients
          */

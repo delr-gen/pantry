@@ -130,7 +130,7 @@ export default function RecipeModal( {id, show, setShow} : RecipeModalProps) {
                 <div className="missing-ingredients">
                     Warning! Missing {missingIngredients.length} Ingredients:
                     <ul>{missingIngredients.map(ingredient => <li key={ingredient.ingredientId}>
-                        {ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
+                        {ingredient.quantity > 0 && ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
                     </ul>
                 </div>}
                 <div>

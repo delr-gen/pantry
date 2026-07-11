@@ -1,13 +1,13 @@
 import "./PantryIngredientList.css"
 import { useEffect, useRef, useState } from "react";
-import DeleteIngredient from "../delete_ingredient/DeleteIngredientCheckBox";
+import IngredientCheckBox from "../../check_box/IngredientCheckBox";
 
 
 interface pantryIngredientListProps {
     ingredientListIsUpdated: boolean
     setIngredientListIsUpdated: (isUpdated: boolean) => void
-    deleteList: number[]
-    setDeleteList: (newDeleteList: number[]) => void
+    selected: number[]
+    setSelected: (newSelected: number[]) => void
 }
 
 async function getPantryIngredients(query: string) {
@@ -34,7 +34,7 @@ async function getPantryIngredients(query: string) {
 }
 
 
-export default function pantryIngredientList( {ingredientListIsUpdated, setIngredientListIsUpdated, deleteList, setDeleteList}: pantryIngredientListProps) {
+export default function pantryIngredientList( {ingredientListIsUpdated, setIngredientListIsUpdated, selected, setSelected}: pantryIngredientListProps) {
     const [pantryIngredients, setPantryIngredients] = useState([]);
     const [ingredientQuery, setIngredientQuery] = useState("");
     const didMount = useRef(false);
@@ -45,7 +45,7 @@ export default function pantryIngredientList( {ingredientListIsUpdated, setIngre
                 getPantryIngredients(ingredientQuery).then((response) => {
                     setPantryIngredients(response)
                     setIngredientListIsUpdated(true);
-                })
+                })  
             }
             else {
                 setIngredientQuery("");
@@ -71,6 +71,7 @@ export default function pantryIngredientList( {ingredientListIsUpdated, setIngre
         }
     , [ingredientQuery]);
 
+    const today = new Date().toISOString().split('T')[0];
     return (
     <div>
         <input 
@@ -90,16 +91,17 @@ export default function pantryIngredientList( {ingredientListIsUpdated, setIngre
                     <li key={ingredient.pantryIngredientId}>
                         <div className="ingredient-item">
                             {ingredient.quantity} {ingredient.unit} {ingredient.name}
-                            <DeleteIngredient
+                            <IngredientCheckBox
                                 pantryIngredientId={ingredient.pantryIngredientId}
-                                deleteList={deleteList}
-                                setDeleteList={setDeleteList}
-                            ></DeleteIngredient>
+                                selected={selected}
+                                setSelected={setSelected}
+                            ></IngredientCheckBox>
                         </div>
                         <div className="ingredient-dates">
                             Bought on {ingredient.date_bought}
-                            <br/>
-                            Expires {ingredient.expiration_date}
+                            <br></br>
+                            {ingredient.expiration_date >= today && <div>Expires {ingredient.expiration_date}</div>}
+                            {ingredient.expiration_date < today && <div className="expired">Expired on {ingredient.expiration_date}</div>}
                         </div>
                     </li>
                 )
