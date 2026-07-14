@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.java.com.pantry.my_pantry.recipe.Recipe;
+
 
 @RestController
 @RequestMapping(value="/api")
 public class PantryIngredientController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Transactional
     @PostMapping(value="/add_pantry_ingredients")
@@ -157,5 +164,23 @@ public class PantryIngredientController {
         List<PantryIngredient> pantryIngredients = jdbcTemplate.query(query, pantryIngredientMapper, name);
 
         return pantryIngredients;
+    }
+
+    @GetMapping("/ingredientids")
+    public List<Integer> getIngredientIdsFromPantry(@RequestParam("pantryIngredientIds") List<Integer> pantryIngedientIds) {
+        String query = """
+                SELECT ingredient_id 
+                FROM Ingredients 
+                LEFT JOIN 
+                Pantry_Ingredients 
+                USING (ingredient_id) 
+                WHERE pantry_ingredient_id IN (:pantryIngedientIds);
+        """;
+
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("pantryIngedientIds", pantryIngedientIds);
+
+        List<Integer> ingredients = namedJdbcTemplate.queryForList(query, parameters, Integer.class);
+        return ingredients;
     }
 }

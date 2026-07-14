@@ -13,6 +13,7 @@ public class PantryRecipeRowMapper implements RowMapper<PantryRecipe>{
         pantryRecipe.setId(rs.getInt("recipe_id"));
         pantryRecipe.setName(rs.getString("name"));
         pantryRecipe.setMissingIngredients(rs.getString("missing_ingredients"));
+        pantryRecipe.setFilteredIngredients(rs.getString("filtered_ingredients"));
 
         return pantryRecipe;
     }

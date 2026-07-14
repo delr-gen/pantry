@@ -57,7 +57,6 @@ export default function FileUpload( {ingredients, setIngredients}: fileUploadPro
                 }
                 temp[prediction.class].quantity += 1;
             }
-            console.log(temp)
             const newIngredients = [];
             for (const [key, value] of Object.entries(temp)) {
                 newIngredients.push(value)

@@ -64,7 +64,7 @@ public class RecipeController {
         name = "%" + name + "%";
 
         String query = """
-                SELECT COUNT(*) 
+                SELECT COUNT(DISTINCT recipe_id) 
                 FROM Recipes 
                 LEFT JOIN Ingredients_In_Recipe
                 USING (recipe_id)

@@ -3,21 +3,26 @@ import React, { useEffect, useState } from "react";
 import LeftOffsetButton from "./LeftOffsetButton";
 import RightOffsetButton from "./RightOffsetButton";
 import RecipeModal from "../view_recipe/RecipeModal";
+import SearchRecipesFromSelectedButton from "../check_box/search_recipes/SearchRecipesFromSelectedButton";
 
 interface PantryRecipeListProps {
     ingredientListIsUpdated: boolean;
+    selected: number[];
+    setSelected: (selected: number[]) => void;
+    setIngredientListIsUpdated: (isUpdated: boolean) => void;
 }
 
-async function getPantryRecipes(offset: number, limit: number, query: string) {
+async function getPantryRecipes(offset: number, limit: number, query: string, selected: number[]) {
     let response = null;
     try {
         const params = {
             offset: offset.toString(),
             limit: limit.toString(),
-            name: query
+            name: query,
+            filtered_ingredients: selected.toString()
         };
         const paramString = new URLSearchParams(params).toString();
-        
+
         response = await fetch(`${import.meta.env.VITE_API_URL}/api/pantryrecipes?${paramString}`, {
             method: "GET"
         });
@@ -37,10 +42,10 @@ async function getPantryRecipes(offset: number, limit: number, query: string) {
 }
 
 
-async function getRecipeLength(query: string) {
+async function getRecipeLength(query: string, selected: number[]) {
     try {
         const url = new URL(`${import.meta.env.VITE_API_URL}/api/recipelength`);
-        const params = {"name": query};
+        const params = {"name": query, "ingredients": selected.toString()};
         url.search = new URLSearchParams(params).toString();
         const response = await fetch(url, {
             method: "GET"
@@ -61,7 +66,7 @@ async function getRecipeLength(query: string) {
 }
 
 
-export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecipeListProps) {
+export default function PantryRecipeList( {ingredientListIsUpdated, setIngredientListIsUpdated, selected}: PantryRecipeListProps) {
     const [listRecipes, setListRecipes] = useState("");
     const [show, setShow] = useState(false);
     const [id, setId] = useState(null);
@@ -70,7 +75,7 @@ export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecip
     const [page, setPage] = useState(1);
     const [recipeLength, setRecipeLength] = useState(0);
     const [recipeQuery, setRecipeQuery] = useState("");
-
+    const [filter, setFilter] = useState([]);
 
     function handleClick(e: React.MouseEvent<HTMLAnchorElement>, id: number) {
         e.preventDefault(); 
@@ -90,16 +95,24 @@ export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecip
                         Missing {recipe.missingIngredients.length} Ingredients: {recipe.missingIngredients.join(", ")}
                     </div>
                 }
+                {
+                    filter.length == 0 && recipe.filteredIngredients.length > 0 && 
+                    <div>In Your Pantry: {recipe.filteredIngredients.join(", ")}</div>
+                }
+                {
+                    filter.length > 0 &&
+                    <div>Includes: {recipe.filteredIngredients.join(", ")}</div>
+                }
             </li>
         ))
     }
 
     function handlePantryRecipeChange() {
-        getPantryRecipes(offset, limit, recipeQuery).then(
+        getPantryRecipes(offset, limit, recipeQuery, filter).then(
             (data) => {
                 handleRecipeListChange(data);      
             });
-        getRecipeLength(recipeQuery).then(
+        getRecipeLength(recipeQuery, filter).then(
             (data) => {
                 setRecipeLength(data);
             }
@@ -111,7 +124,7 @@ export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecip
     }, [offset, ingredientListIsUpdated])
 
     useEffect(() => {
-            getRecipeLength(recipeQuery).then(response => setRecipeLength(response));
+            getRecipeLength(recipeQuery, filter).then(response => setRecipeLength(response));
     })
 
     useEffect(() => {
@@ -121,12 +134,12 @@ export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecip
                 setPage(1);
             }
             else {
-                handlePantryRecipeChange();
+                setIngredientListIsUpdated(false);
             }
         }
         , 500);
         return () => clearTimeout(timeOutId);
-    }, [recipeQuery])
+    }, [recipeQuery, filter])
 
 
     return (
@@ -146,6 +159,11 @@ export default function PantryRecipeList( {ingredientListIsUpdated}: PantryRecip
                 >
                 </input>
             </form>
+            <SearchRecipesFromSelectedButton
+                selected = {selected}
+                setFilter= {setFilter}>
+            </SearchRecipesFromSelectedButton>
+            <br></br>
             <LeftOffsetButton
                 currOffset = {offset}
                 setOffset = {setOffset}

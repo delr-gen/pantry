@@ -45,7 +45,6 @@ export default function WebCamCapture({ingredients, setIngredients}: webCamCaptu
             const temp = {}
             const imageSrc = webcamRef.current.getScreenshot();
             fetchImage(imageSrc).then((response) => {
-                console.log(response)
                 const today = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
                 for (const prediction of response.predictions) {
                     if (!(prediction.class in temp)) {

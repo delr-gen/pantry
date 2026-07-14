@@ -2,14 +2,15 @@ import { Button } from "react-bootstrap";
 
 interface SearchRecipesFromSelectedButtonProps{
     selected: number[];
+    setFilter: (selected: number[]) => void;
 }
 
 async function getRecipes(ingredients: number[]) {
     try {
         const params = new URLSearchParams();
-        ingredients.forEach(ingredient => params.append('ingredients', ingredient.toString()))
+        ingredients.forEach(ingredient => params.append('pantryIngredientIds', ingredient.toString()))
 
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recipeswithingredients?${params.toString()}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/ingredientids?${params.toString()}`, {
             method: "GET"
         });
         
@@ -27,14 +28,16 @@ async function getRecipes(ingredients: number[]) {
     }  
 }
 
-export default function SearchRecipesFromSelectedButton({ selected }: SearchRecipesFromSelectedButtonProps) {
+export default function SearchRecipesFromSelectedButton({ selected, setFilter }: SearchRecipesFromSelectedButtonProps) {
     function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-        getRecipes(selected).then((response) => console.log(response));
+        getRecipes(selected).then((response) => {
+            setFilter(response);
+        });
     }
     return (
         <>
-            <Button onClick={handleClick} disabled={selected.length == 0}>Search Selected</Button>
+            <Button onClick={handleClick} disabled={selected.length == 0}>Filter</Button>
         </>
     )
 }

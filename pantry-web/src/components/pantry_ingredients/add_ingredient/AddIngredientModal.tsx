@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AddIngredientModal.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddIngredientPromptItem from './AddIngredientPromptItem';
@@ -24,6 +24,8 @@ export default function AddIngredientModal( { setIngredientListIsUpdated }: addI
     setShow(false);
     setIngredients([initialValues]);
   }
+
+  useEffect(() => {console.log(ingredients)}, [ingredients])
 
   const handleAddIngredientPrompt = () => {
     setIngredients([...ingredients, initialValues])
